@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                </li>
+                <li class="nav-item">
+                    @await Component.InvokeAsync("CategoryMenu")
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2020 - Tea Shop</p>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

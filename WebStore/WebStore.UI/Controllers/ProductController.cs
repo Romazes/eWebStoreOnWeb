@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using WebStore.Core.Entities;
 using WebStore.Core.Interfaces;
 using WebStore.UI.ViewModels;
 
@@ -14,13 +17,28 @@ namespace WebStore.UI.Controllers
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
-        public IActionResult List()
+        public ViewResult List(string category)
         {
-            ProductsListViewModel productsListViewModel = new ProductsListViewModel();
-            productsListViewModel.Products = _productRepository.AllProducts;
+            IEnumerable<Product> products;
+            string currentCategory;
 
-            productsListViewModel.CurrentCategory = "Tea";
-            return View(productsListViewModel);
+            if (string.IsNullOrEmpty(category))
+            {
+                products = _productRepository.AllProducts.OrderBy(p => p.ProductId);
+                currentCategory = "All tea";
+            }
+            else
+            {
+                products = _productRepository.AllProducts.Where(p => p.Category.CategoryName == category)
+                    .OrderBy(p => p.ProductId);
+                currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
+            }
+
+            return View(new ProductsListViewModel
+            {
+                Products = products,
+                CurrentCategory = currentCategory
+            });
         }
     }
 }
