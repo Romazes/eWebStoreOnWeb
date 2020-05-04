@@ -1,43 +1,76 @@
 ﻿@model ShoppingCartViewModel
 
-<h2>Your shopping cart</h2>
-<h4>Here are the delicious pies in your shopping cart.</h4>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Selected amount</th>
-            <th>Pie</th>
-            <th class="text-right">Price</th>
-            <th class="text-right">Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
-        {
-            <tr>
-                <td class="text-center">@line.Amount</td>
-                <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("c")</td>
-                <td class="text-right">
-                    @((line.Amount * line.Product.Price).ToString("c"))
-                </td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Total:</td>
-            <td class="text-right">
-                @Model.ShoppingCartTotal.ToString("c")
-            </td>
-        </tr>
-    </tfoot>
-</table>
-
-<div class="text-center">
-    <a class="btn btn-primary" asp-controller="Order" asp-action="Checkout">Check out now!</a>
+<div class="border-bottom">
+    <h2>Your shopping cart</h2>
 </div>
 
+@if (Model.ShoppingCart.ShoppingCartItems.Count() <= 0)
+{
+    <h4 class="text-center">
+        Your Tea cart is empty
+        <i class="far fa-frown-open"></i>
+    </h4>
+}
+else
+{
+    <h4>Here are the delicious teas in your shopping cart.</h4>
+    <table class="table table-hover">
+        <thead>
+            <tr class="d-flex">
+                <th class="col-1">Selected amount</th>
+                <th class="col-5">Tea</th>
+                <th class="col-2 text-right">Price</th>
+                <th class="col-2 text-right">Subtotal</th>
+                <th class="col-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+            {
+                <tr class="d-flex">
+                    <td class="col-1 text-center">@line.Amount</td>
+                    <td class="col-5 text-left">@line.Product.Name</td>
+                    <td class="col-2 text-right">@line.Product.Price.ToString("c")</td>
+                    <td class="col-2 text-right">
+                        @((line.Amount * line.Product.Price).ToString("c"))
+                    </td>
+                    <td class="col-2">
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#@Html.DisplayName("modal" + line.Product.ProductId)">
+                            Remove
+                        </button>
+                        <div id="@Html.DisplayName("modal" + line.Product.ProductId)" class="modal fade" role="dialog" data-toggle="modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @await Html.PartialAsync("_DeleteProduct", line)
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="d-flex">
+                <td class="text-right table-primary col-10">Total:</td>
+                <td class="text-right table-primary col-2">
+                    @Model.ShoppingCartTotal.ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-primary" asp-controller="Order" asp-action="Checkout">Check out now!</a>
+    </div>
+}
 <div>
     <a asp-controller="Home" asp-action="Index">Back Home</a>
 </div>

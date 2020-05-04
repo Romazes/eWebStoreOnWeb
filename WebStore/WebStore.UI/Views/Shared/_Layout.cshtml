@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                 <img src="~/Images/Icons/logo-01.jpg" width="30" height="30" alt="">
             </a>
@@ -44,18 +44,13 @@
                             </div>
                         </form>
                     </li>
-
                     @if (SignInManager.IsSignedIn(User)) //&& User.IsInRole("Administrators"))
                     {
                         <li class="nav-item">
                             @await Component.InvokeAsync("AdminMenu")
                         </li>
                     }
-
-
-
                 </ul>
-
                 <ul class="navbar-nav ml-md-auto">
                     <li class="pr-md-2">
                         @await Component.InvokeAsync("ShoppingCartSummary")
@@ -79,5 +74,6 @@
 
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
