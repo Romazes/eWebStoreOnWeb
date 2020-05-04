@@ -7,39 +7,52 @@
     <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/site.css" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
+    <title>Tea Shop</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
-                </li>
-                <li class="nav-item">
-                    @await Component.InvokeAsync("CategoryMenu")
-                </li>
-                <li>
-                    @await Component.InvokeAsync("ShoppingCartSummary")
-                </li>
-                <li>
-                    <form asp-controller="Product" asp-action="List" method="get">
-                        <p>
-                            Title: <input id="productName" type="text" name="SearchString" />
-                            <input type="submit" value="Filter" />
-                        </p>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="~/Images/Icons/logo-01.jpg" width="30" height="30" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        @await Component.InvokeAsync("CategoryMenu")
+                    </li>
+                    <li>
+                        <form class="input-group mb-3 my-2 my-lg-0" asp-controller="Product" asp-action="List" method="get">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                                   name="SearchString" />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="pr-md-2">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </li>
+                    <li>
+                        <partial name="_LoginPartial" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
     <div class="container">
         @RenderBody()

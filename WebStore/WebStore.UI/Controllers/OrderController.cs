@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Core.Entities;
 using WebStore.Core.Interfaces;
 using WebStore.Infrastructure.Data.Repositories;
@@ -7,6 +8,7 @@ using WebStore.Infrastructure.Data.Repositories;
 
 namespace WebStore.UI.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
