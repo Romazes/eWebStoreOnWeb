@@ -49,3 +49,20 @@ a.remove {
 .carousel img {
     min-width: 100%;
 }
+
+/*ShoppingCartSummary*/
+.notification {
+    position: relative;
+    display: inline-block;
+}
+
+    .notification .badge {
+        position: absolute;
+        top: -6px;
+        right: -7px;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: #e52222;
+        color: white;
+    }

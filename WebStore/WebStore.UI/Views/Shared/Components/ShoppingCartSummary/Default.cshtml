@@ -1,0 +1,10 @@
+﻿@model ShoppingCartViewModel
+
+<a class="nav-link notification" asp-controller="ShoppingCart" asp-action="Index">
+    <i class="fas fa-shopping-basket"></i>
+
+    @if (Model.ShoppingCart.ShoppingCartItems.Count > 0)
+    {
+        <span class="badge">@Model.ShoppingCart.ShoppingCartItems.Count</span>
+    }
+</a>
