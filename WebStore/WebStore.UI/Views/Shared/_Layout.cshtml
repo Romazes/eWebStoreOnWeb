@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> SignInManager
+@inject IAuthorizationService AuthorizationService
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -40,6 +44,16 @@
                             </div>
                         </form>
                     </li>
+
+                    @if (SignInManager.IsSignedIn(User)) //&& User.IsInRole("Administrators"))
+                    {
+                        <li class="nav-item">
+                            @await Component.InvokeAsync("AdminMenu")
+                        </li>
+                    }
+
+
+
                 </ul>
 
                 <ul class="navbar-nav ml-md-auto">

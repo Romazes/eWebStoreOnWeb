@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebStore.UI.Components.AdminMenuItem>
+
+<li class="nav-item dropdown">
+    <a asp-controller="Admin"
+       asp-action="Index"
+       class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        @foreach (var menuItem in Model)
+        {
+            <a class="dropdown-item"
+               asp-controller="Admin" asp-action=@menuItem.ActionValue>@menuItem.DisplayValue</a>
+        }
+    </div>
+</li>
