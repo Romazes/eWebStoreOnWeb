@@ -26,7 +26,17 @@
                 <li class="nav-item">
                     @await Component.InvokeAsync("CategoryMenu")
                 </li>
-                @await Component.InvokeAsync("ShoppingCartSummary")
+                <li>
+                    @await Component.InvokeAsync("ShoppingCartSummary")
+                </li>
+                <li>
+                    <form asp-controller="Product" asp-action="List" method="get">
+                        <p>
+                            Title: <input id="productName" type="text" name="SearchString" />
+                            <input type="submit" value="Filter" />
+                        </p>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>

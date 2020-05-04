@@ -17,27 +17,25 @@ namespace WebStore.UI.Controllers
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
-        public ViewResult List(string category)
+        public ViewResult List(string category, string searchString)
         {
-            IEnumerable<Product> products;
-            string currentCategory;
+            IEnumerable<Product> products = from p in _productRepository.AllProducts
+                                            select p;
 
-            if (string.IsNullOrEmpty(category))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                products = _productRepository.AllProducts.OrderBy(p => p.ProductId);
-                currentCategory = "All tea";
+                products = products.Where(s => s.Name.Contains(searchString, System.StringComparison.OrdinalIgnoreCase));
             }
-            else
+
+            if (!string.IsNullOrEmpty(category))
             {
-                products = _productRepository.AllProducts.Where(p => p.Category.CategoryName == category)
-                    .OrderBy(p => p.ProductId);
-                currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
+                products = products.Where(x => x.Category.CategoryName == category);
             }
 
             return View(new ProductsListViewModel
             {
                 Products = products,
-                CurrentCategory = currentCategory
+                CurrentCategory = category
             });
         }
 
