@@ -4,7 +4,7 @@ https://github.com/v4dev/WebStore/
 
 Team:
 1. Roman Yavnikov (https://github.com/Romazes/)
-2. Yana Kovalenko (https://github.com/YanaKovalenko/)
+2. Yana Kovalenko (https://github.com/YanaKovalenko/ https://github.com/Alexsaio/)
 3. Vladimir Tonkopryad (https://github.com/v4dev/)
 
 Online Tea Shop final project features Asp.NET Core MVC 3.1 implementation and the following functionality:
