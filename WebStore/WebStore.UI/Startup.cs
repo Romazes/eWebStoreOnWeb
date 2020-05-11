@@ -31,7 +31,7 @@ namespace WebStore.UI
                     options.UseSqlServer(Configuration.GetConnectionString("AppDBContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
-            services.AddScoped<IEmailSender, EmailSender>();
+            //services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
