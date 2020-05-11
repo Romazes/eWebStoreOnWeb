@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using WebStore.Core.Entities.Auth;
+using WebStore.UI.ViewModels.AdministrationViewModels;
 
 namespace WebStore.UI.Areas.Identity.Pages.Account
 {
@@ -44,30 +45,30 @@ namespace WebStore.UI.Areas.Identity.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public class InputModel
+        public class InputModel : AddUserViewModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+            //[Required]
+            //[EmailAddress]
+            //[Display(Name = "Email")]
+            //public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+            //[Required]
+            //[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            //[DataType(DataType.Password)]
+            //[Display(Name = "Password")]
+            //public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            [Required(ErrorMessage = "Please enter the birth date")]
-            [Display(Name = "Birth date")]
-            [DataType(DataType.Date)]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-            public DateTime Birthdate { get; set; }
-            public string City { get; set; }
-            public string Country { get; set; }
+            //[Required(ErrorMessage = "Please enter the birth date")]
+            //[Display(Name = "Birth date")]
+            //[DataType(DataType.Date)]
+            //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            //public DateTime Birthdate { get; set; }
+            //public string City { get; set; }
+            //public string Country { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
