@@ -1,4 +1,4 @@
-﻿@model IdentityUser
+﻿@model EditUserViewModel
 
 <h2>Edit user</h2>
 
@@ -10,7 +10,7 @@
     <div class="form-group">
         <label asp-for="Id" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="Id" class="form-control" />
+            <input asp-for="Id" class="form-control" readonly="readonly" />
             <span asp-validation-for="Id" class="text-danger"></span>
         </div>
     </div>
@@ -32,9 +32,33 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Birthdate" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Birthdate" class="form-control" />
+            <span asp-validation-for="Birthdate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Country" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Save user" />
-            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            <a asp-action="UserManagement" class="btn btn-primary">Cancel</a>
         </div>
     </div>
 </form>
