@@ -95,7 +95,7 @@ namespace WebStore.UI.Controllers
 
                 ModelState.AddModelError("", "User not updated, something went wrong.");
 
-                return View(user); // This may need to be set to: editUserViewModel
+                return View(editUserViewModel); // If fails this may need to be set to: user
             }
 
             return RedirectToAction("UserManagement", _userManager.Users);
