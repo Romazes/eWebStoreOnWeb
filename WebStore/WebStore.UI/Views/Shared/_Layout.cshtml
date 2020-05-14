@@ -44,7 +44,7 @@
                             </div>
                         </form>
                     </li>
-                    @if (SignInManager.IsSignedIn(User)) //&& User.IsInRole("Administrators"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrators"))
                     {
                         <li class="nav-item">
                             @await Component.InvokeAsync("AdminMenu")
