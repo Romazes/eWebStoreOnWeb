@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.UI.ViewModels.AdministrationViewModels
+namespace WebStore.UI.ViewModels.AdministrationViewModels.User
 {
     public class EditUserViewModel
     {

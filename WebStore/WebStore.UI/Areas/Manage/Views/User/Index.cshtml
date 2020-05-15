@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "All Users";
+}
+
+<h2>User management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>User ID</th>
+            <th>User name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (ApplicationUser user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@user.Id"><i class="fas fa-edit"></i></a>&nbsp;
+                    <a class="btn btn-success text-white" asp-action="Details" asp-route-id="@user.Id"><i class="fas fa-list-alt"></i></a>&nbsp;
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@user.Id"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<a class="btn btn-primary" asp-action="AddUser">Add new user</a>
