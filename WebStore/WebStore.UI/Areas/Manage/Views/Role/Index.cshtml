@@ -7,7 +7,12 @@
     ViewBag.Title = "All Roles";
 }
 
-<h2>Role management</h2>
+<h1>Roles</h1>
+
+<p>
+    <a class="btn btn-success text-white" asp-action="AddRole" accesskey="n"><i class="fas fa-plus-square"></i>&nbsp;Add <u>N</u>ew Role</a>
+</p>
+
 
 @if (!Model.Any())
 {
@@ -27,14 +32,12 @@ else
                 <td>@role.Id</td>
                 <td>@role.Name</td>
                 <td>
-                    <a class="btn btn-primary text-white" asp-action="EditRole" asp-route-id="@role.Id"><i class="fas fa-edit"></i></a>&nbsp;
-                    <a class="btn btn-success text-white" asp-action="Details" asp-route-id="@role.Id"><i class="fas fa-list-alt"></i></a>&nbsp;
-                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@role.Id"><i class="fas fa-trash-alt"></i></a>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="EditRole" asp-route-Id="@role.Id"><i class="fas fa-edit"></i></a>&nbsp;
+                        <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@role.Id"><i class="fas fa-trash-alt"></i></a>
+                    </div>
                 </td>
             </tr>
         }
     </table>
 }
-
-<a class="btn btn-primary" asp-action="AddRole">Add new role</a>
-

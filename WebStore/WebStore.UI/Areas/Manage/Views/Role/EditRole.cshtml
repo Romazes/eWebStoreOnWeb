@@ -27,8 +27,12 @@
 
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            <a class="btn btn-secondary text-white" asp-action="Index" accesskey="b">
+                <i class="fas fa-hand-point-left"></i> <u>B</u>ack to list
+            </a>
+            <button type="submit" class="btn btn-danger text-white" accesskey="u">
+                <i class="fas fa-edit"></i> <u>U</u>pdate
+            </button>
         </div>
     </div>
 
@@ -47,17 +51,13 @@
                 }
                 else
                 {
-                    <h5 class="card-title">None at the moment</h5>
+                    <li class="card-title">None at the moment</li>
                 }
             </ol>
         </div>
         <div class="card-footer">
             <a asp-area="Manage" asp-controller="Role" asp-action="EditUsersInRole" asp-route-roleId="@Model.Id"
-               class="btn btn-primary" style="width:auto">Add or remove users</a>
+               class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove users</a>
         </div>
     </div>
 </form>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

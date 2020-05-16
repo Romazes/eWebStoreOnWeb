@@ -7,7 +7,11 @@
     ViewBag.Title = "All Users";
 }
 
-<h2>User management</h2>
+<h1>Users</h1>
+
+<p>
+    <a class="btn btn-success text-white" asp-action="AddUser" accesskey="n"><i class="fas fa-plus-square"></i>&nbsp;Add <u>N</u>ew User</a>
+</p>
 
 @if (!Model.Any())
 {
@@ -28,14 +32,15 @@ else
                 <td>@user.Id</td>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
+                <partial name="PartialViewsForManagement/_PartialViewButtonInt" model="user.Id" />
                 <td>
-                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@user.Id"><i class="fas fa-edit"></i></a>&nbsp;
-                    <a class="btn btn-success text-white" asp-action="Details" asp-route-id="@user.Id"><i class="fas fa-list-alt"></i></a>&nbsp;
-                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@user.Id"><i class="fas fa-trash-alt"></i></a>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="EditUser" asp-route-id="@user.Id"><i class="fas fa-edit"></i></a>&nbsp;
+                        <a class="btn btn-success text-white" asp-action="Details" asp-route-id="@user.Id"><i class="fas fa-list-alt"></i></a>&nbsp;
+                        <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@user.Id"><i class="fas fa-trash-alt"></i></a>
+                    </div>
                 </td>
             </tr>
         }
     </table>
 }
-
-<a class="btn btn-primary" asp-action="AddUser">Add new user</a>
