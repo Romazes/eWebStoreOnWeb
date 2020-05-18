@@ -21,14 +21,16 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _context = context;
         }
 
-        // GET: Manage/Product
+        // GET: Manage/<>
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.Products.Include(p => p.Category);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Manage/Product/Details/5
+        // GET: Manage/<>/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +49,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/Product/Create
+        // GET: Manage/<>/Create
+        [HttpGet]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId");
@@ -71,7 +74,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/Product/Edit/5
+        // GET: Manage/<>/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,7 +128,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/Product/Delete/5
+        // GET: Manage/<>/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

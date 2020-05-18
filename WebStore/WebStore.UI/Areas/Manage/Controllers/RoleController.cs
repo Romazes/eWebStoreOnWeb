@@ -33,6 +33,13 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(roles);
         }
 
+        [HttpGet]
+        public IActionResult AddRole()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddRole(AddRoleViewModel model)
         {
@@ -192,6 +199,49 @@ namespace WebStore.UI.Areas.Manage.Controllers
             }
 
             return RedirectToAction("EditRole", new { Id = roleId });
+        }
+
+
+        // GET: Manage/<>/Delete/5
+        [HttpGet]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            if (id == null)
+            {
+                ViewBag.ErrorMessage = $"Role Id cannot be found";
+                return View("NotFound");
+            }
+
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            return View(role);
+        }
+
+        [HttpPost, ActionName("DeleteRole")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            var result = await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View("Index");
         }
     }
 }

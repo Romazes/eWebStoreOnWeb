@@ -20,13 +20,15 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _context = context;
         }
 
-        // GET: Manage/Category
+        // GET: Manage/<>
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Manage/Category/Details/5
+        // GET: Manage/<>/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,13 +46,14 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // GET: Manage/Category/Create
+        // GET: Manage/<>/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Manage/Category/Create
+        // POST: Manage/<>/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -66,7 +69,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // GET: Manage/Category/Edit/5
+        // GET: Manage/<>/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +86,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // POST: Manage/Category/Edit/5
+        // POST: Manage/<>/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -117,7 +121,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // GET: Manage/Category/Delete/5
+        // GET: Manage/<>/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,7 +140,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // POST: Manage/Category/Delete/5
+        // POST: Manage/<>/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,0 +1,107 @@
+﻿@model AddUserWithRolesViewModel
+
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add User</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddUser" method="post" class="form-horizontal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Password"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Birthdate"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Birthdate" class="form-control" />
+                    <span asp-validation-for="Birthdate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="City"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Country"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">Management role</div>
+                <div class="col-5">
+                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.ADMINISTRATORS" /> @AuthorizationConstants.Roles.ADMINISTRATORS
+                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.MANAGERS" /> @AuthorizationConstants.Roles.MANAGERS
+                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.USERS" /> @AuthorizationConstants.Roles.USERS
+                </div>
+            </div>
+
+
+            <div class="custom-checkbox">
+                <div class="col-3"><label asp-for="role"></label></div>
+                <div class="col-5">
+                    @for (var i = 0; i < Model.RoleList.Count; i++)
+                    {
+                        <input asp-for="role" type="radio" value="@Model.RoleList[i].Name" />
+                        <label asp-for="@Model.RoleList[i].Name">@Model.RoleList[i].Name 111</label>
+                    }
+                    <span asp-validation-for="role" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <partial name="PartialViewsForManagement/_PartialViewFooterCreate" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
