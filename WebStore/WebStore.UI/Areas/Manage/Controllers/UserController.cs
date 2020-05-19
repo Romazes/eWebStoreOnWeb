@@ -34,46 +34,46 @@ namespace WebStore.UI.Areas.Manage.Controllers
         }
 
         [HttpGet]
+        // GET: Manage/<>/ManageUserRoles/5
         public IActionResult AddUser()
         {
-            var model = new AddUserWithRolesViewModel();
-            model.RoleList = _roleManager.Roles.ToList();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AddUserWithRolesViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    Birthdate = model.Birthdate,
-                    City = model.City,
-                    Country = model.Country
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // _userManager.AddToRoleAsync(user, model.role).Wait();
-                    // _logger.LogInformation("User created a new account with password and role.");
-                    // other logic you want
-                    return RedirectToAction("index");
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
             return View();
         }
 
-        // GET: Manage/<>/ManageUserRoles/5
+        [HttpPost]
+        public async Task<IActionResult> AddUser(AddUserViewModel addUserViewModel)
+        {
+            if (!ModelState.IsValid) return View(addUserViewModel);
+
+            var user = new ApplicationUser()
+            {
+                UserName = addUserViewModel.UserName,
+                Email = addUserViewModel.Email,
+                Birthdate = addUserViewModel.Birthdate,
+                City = addUserViewModel.City,
+                Country = addUserViewModel.Country
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", _userManager.Users);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(addUserViewModel);
+        }
+
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {

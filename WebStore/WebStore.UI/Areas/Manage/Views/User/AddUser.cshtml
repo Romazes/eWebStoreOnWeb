@@ -1,4 +1,4 @@
-﻿@model AddUserWithRolesViewModel
+﻿@model AddUserViewModel
 
 @{
     ViewData["Title"] = "AddUser";
@@ -83,17 +83,6 @@
             </div>
 
 
-            <div class="custom-checkbox">
-                <div class="col-3"><label asp-for="role"></label></div>
-                <div class="col-5">
-                    @for (var i = 0; i < Model.RoleList.Count; i++)
-                    {
-                        <input asp-for="role" type="radio" value="@Model.RoleList[i].Name" />
-                        <label asp-for="@Model.RoleList[i].Name">@Model.RoleList[i].Name 111</label>
-                    }
-                    <span asp-validation-for="role" class="text-danger"></span>
-                </div>
-            </div>
 
             <div class="form-group">
                 <partial name="PartialViewsForManagement/_PartialViewFooterCreate" />
