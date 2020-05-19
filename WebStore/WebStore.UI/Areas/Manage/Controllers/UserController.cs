@@ -11,8 +11,6 @@ using WebStore.Core.Entities.Auth;
 using WebStore.UI.Utilities;
 using WebStore.UI.ViewModels.AdministrationViewModels.User;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebStore.UI.Areas.Manage.Controllers
 {
     [Area("Manage")]
@@ -28,7 +26,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _userManager = userManager;
         }
 
-        // GET: /<controller>/
         [HttpGet]
         public async Task<IActionResult> IndexAsync(
             string sortOrder,
@@ -56,8 +53,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(u => u.UserName.Contains(searchString)
-                                       || u.Email.Contains(searchString));
+                users = users.Where(u => u.UserName.Contains(searchString) || u.Email.Contains(searchString));
             }
 
             switch (sortOrder)
@@ -80,72 +76,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(await PaginatedList<ApplicationUser>.CreateAsync(users.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-
-        #region Old Index Method
-        public async Task<IActionResult> IndexAsyncOLD(string sortOrder, string searchString)
-        {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
-            ViewData["CurrentFilter"] = searchString;
-
-            var users = from u in _userManager.Users
-                        select u;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                users = users.Where(u => u.UserName.Contains(searchString)
-                                       || u.Email.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    users = users.OrderByDescending(u => u.UserName);
-                    break;
-                case "Email":
-                    users = users.OrderBy(u => u.Email);
-                    break;
-                case "email_desc":
-                    users = users.OrderByDescending(u => u.Email);
-                    break;
-                default:
-                    users = users.OrderBy(s => s.UserName);
-                    break;
-            }
-
-            return View(await users.AsNoTracking().ToListAsync());
-        }
-
-        public async Task<IActionResult> IndexAsyncOLD(string sortOrder)
-        {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
-
-            var users = from u in _userManager.Users
-                        select u;
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    users = users.OrderByDescending(u => u.UserName);
-                    break;
-                case "Email":
-                    users = users.OrderBy(u => u.Email);
-                    break;
-                case "email_desc":
-                    users = users.OrderByDescending(u => u.Email);
-                    break;
-                default:
-                    users = users.OrderBy(s => s.UserName);
-                    break;
-            }
-
-            return View(await users.AsNoTracking().ToListAsync());
-        }
-        #endregion
-
         [HttpGet]
-        // GET: Manage/<>/ManageUserRoles/5
         public IActionResult AddUser()
         {
             return View();
@@ -181,7 +112,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View("EditUser", user);
         }
 
-        // GET: Manage/<>/Edit/5
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {
@@ -309,7 +239,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return RedirectToAction("Index", _userManager.Users);
         }
 
-        // GET: Manage/<>/Delete/5
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)
         {
