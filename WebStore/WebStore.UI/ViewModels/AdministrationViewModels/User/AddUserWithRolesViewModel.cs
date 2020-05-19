@@ -7,6 +7,11 @@ namespace WebStore.UI.ViewModels.AdministrationViewModels.User
 {
     public class AddUserWithRolesViewModel
     {
+        public AddUserWithRolesViewModel()
+        {
+            RoleList = new List<IdentityRole>();
+        }
+
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }

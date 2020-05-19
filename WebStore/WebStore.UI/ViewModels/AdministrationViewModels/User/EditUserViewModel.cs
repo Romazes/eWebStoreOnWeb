@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebStore.UI.ViewModels.AdministrationViewModels.User
 {
     public class EditUserViewModel
     {
+        public EditUserViewModel()
+        {
+            Roles = new List<string>();
+        }
+
+
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Please enter the user name")]
@@ -23,5 +30,8 @@ namespace WebStore.UI.ViewModels.AdministrationViewModels.User
         public string City { get; set; }
 
         public string Country { get; set; }
+
+        [Display(Name = "Roles")]
+        public List<string> Roles { get; set; }
     }
 }

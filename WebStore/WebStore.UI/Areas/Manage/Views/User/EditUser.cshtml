@@ -71,6 +71,26 @@
                 <partial name="PartialViewsForManagement/_PartialViewFooterEdit" />
             </div>
 
+            <div class="card">
+                <div class="card-header"><h3>User Roles:</h3></div>
+            </div>
+            <div class="card-body">
+                @if (Model.Roles.Any())
+                {
+                    foreach (var role in Model.Roles)
+                    {
+                        <h5 class="card-title">@role</h5>
+                    }
+                }
+                else
+                {
+                    <h5 class="card-title">None at the moment</h5>
+                }
+            </div>
+            <div class="card-footer">
+                <a asp-area="Manage" asp-controller="User" asp-action="ManageUserRoles" asp-route-userId="@Model.Id"
+                   class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove roles</a>
+            </div>
         </form>
     </div>
 </div>
