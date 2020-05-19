@@ -29,7 +29,44 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        public async Task<IActionResult> IndexAsync(string sortOrder)
+
+        public async Task<IActionResult> IndexAsync(string sortOrder, string searchString)
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
+            ViewData["CurrentFilter"] = searchString;
+
+            var users = from u in _userManager.Users
+                        select u;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.UserName.Contains(searchString)
+                                       || u.Email.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(u => u.UserName);
+                    break;
+                case "Email":
+                    users = users.OrderBy(u => u.Email);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(u => u.Email);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.UserName);
+                    break;
+            }
+
+            return View(await users.AsNoTracking().ToListAsync());
+        }
+
+
+        #region Old Index Method
+        public async Task<IActionResult> IndexAsyncOLD(string sortOrder)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
@@ -55,6 +92,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
             return View(await users.AsNoTracking().ToListAsync());
         }
+        #endregion
 
         [HttpGet]
         // GET: Manage/<>/ManageUserRoles/5
