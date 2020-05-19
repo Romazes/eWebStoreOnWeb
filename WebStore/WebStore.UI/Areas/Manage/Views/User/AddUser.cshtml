@@ -1,7 +1,7 @@
 ﻿@model AddUserViewModel
 
 @{
-    ViewData["Title"] = "AddUser";
+    ViewData["Title"] = "Add User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -72,18 +72,6 @@
                     <span asp-validation-for="Country" class="text-danger"></span>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <div class="col-3">Management role</div>
-                <div class="col-5">
-                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.ADMINISTRATORS" /> @AuthorizationConstants.Roles.ADMINISTRATORS
-                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.MANAGERS" /> @AuthorizationConstants.Roles.MANAGERS
-                    <input type="radio" name="rdUserRole" value="@AuthorizationConstants.Roles.USERS" /> @AuthorizationConstants.Roles.USERS
-                </div>
-            </div>
-
-
-
             <div class="form-group">
                 <partial name="PartialViewsForManagement/_PartialViewFooterCreate" />
             </div>

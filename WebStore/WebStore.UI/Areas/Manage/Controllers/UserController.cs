@@ -201,12 +201,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            if (id == null)
-            {
-                ViewBag.ErrorMessage = $"User Id cannot be found";
-                return View("NotFound");
-            }
-
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
@@ -215,7 +209,25 @@ namespace WebStore.UI.Areas.Manage.Controllers
                 return View("NotFound");
             }
 
-            return View(user);
+            var model = new EditUserViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Birthdate = user.Birthdate,
+                City = user.City,
+                Country = user.Country
+            };
+
+            // Retrieve all the Roles
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                model.Roles.Add(role);
+            }
+
+            return View(model);
         }
 
         [HttpPost, ActionName("DeleteUser")]
