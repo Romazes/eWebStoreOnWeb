@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model PaginatedList<ApplicationUser>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,7 +20,8 @@
             <input type="text" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Search users" />
 
             <button class="btn btn-primary text-white" type="submit" accesskey="s">
-                <i class="fas fa-search"></i> Search</button>
+                <i class="fas fa-search"></i> Search
+            </button>
 
             <a class="btn btn-secondary text-white" asp-action="Index" accesskey="b">
                 <i class="fas fa-hand-point-left"></i> <u>B</u>ack to list
@@ -39,10 +40,10 @@ else
         <tr>
             <th>User ID</th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">User Name</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">User Name</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">Email</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Email</a>
             </th>
             <th>Actions</th>
         </tr>
@@ -54,7 +55,7 @@ else
                 <td>@user.Email</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <a class="btn btn-primary text-white" asp-action="EditUser" asp-route-id="@user.Id"><i class="fas fa-edit"></i></a>&nbsp;                       
+                        <a class="btn btn-primary text-white" asp-action="EditUser" asp-route-id="@user.Id"><i class="fas fa-edit"></i></a>&nbsp;
                         <a class="btn btn-danger text-white" asp-action="DeleteUser" asp-route-id="@user.Id"><i class="fas fa-trash-alt"></i></a>&nbsp;
                     </div>
                 </td>
@@ -62,3 +63,23 @@ else
         }
     </table>
 }
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @prevDisabled">
+    <i class="fas fa-step-backward"></i>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @nextDisabled">
+    <i class="fas fa-step-forward"></i>
+</a>
