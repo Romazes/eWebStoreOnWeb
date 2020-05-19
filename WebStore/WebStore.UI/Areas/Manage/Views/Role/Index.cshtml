@@ -23,7 +23,9 @@ else
     <table class="table table-condensed table-bordered">
         <tr>
             <th>Role ID</th>
-            <th>Role name</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
             <th>Actions</th>
         </tr>
         @foreach (IdentityRole role in Model)

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
 using WebStore.UI.ViewModels.AdministrationViewModels.Role;
+using System.Linq;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,11 +28,23 @@ namespace WebStore.UI.Areas.Manage.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync(string sortOrder)
         {
-            var roles = _roleManager.Roles;
+            ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
 
-            return View(roles);
+            var roles = from r in _roleManager.Roles
+                         select r;
+
+            switch (sortOrder)
+            {
+                case "role_desc":
+                    roles = roles.OrderByDescending(r => r.Name);
+                    break;
+                default:
+                    roles = roles.OrderBy(r => r.Name);
+                    break;
+            }
+            return View(await roles.AsNoTracking().ToListAsync());
         }
 
         [HttpGet]
@@ -229,7 +244,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
 
             foreach (var error in result.Errors)
