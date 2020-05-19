@@ -25,15 +25,8 @@
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <a class="btn btn-secondary text-white" asp-action="Index" accesskey="b">
-                <i class="fas fa-hand-point-left"></i> <u>B</u>ack to list
-            </a>
-            <button type="submit" class="btn btn-danger text-white" accesskey="u">
-                <i class="fas fa-edit"></i> <u>U</u>pdate
-            </button>
-        </div>
+    <div class="form-group">
+        <partial name="PartialViewsForManagement/_PartialViewFooterEdit" />
     </div>
 
     <div class="card">
