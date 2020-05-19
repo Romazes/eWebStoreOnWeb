@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,10 +29,31 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync(string sortOrder)
         {
-            var users = _userManager.Users;
-            return View(users);
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
+
+            var users = from u in _userManager.Users
+                        select u;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(u => u.UserName);
+                    break;
+                case "Email":
+                    users = users.OrderBy(u => u.Email);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(u => u.Email);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.UserName);
+                    break;
+            }
+
+            return View(await users.AsNoTracking().ToListAsync());
         }
 
         [HttpGet]
@@ -66,7 +89,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
                 ModelState.AddModelError("", error.Description);
             }
 
-            return View(addUserViewModel);
+            //return View(addUserViewModel);
+            return View("EditUser", user);
         }
 
         // GET: Manage/<>/Edit/5
