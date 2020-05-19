@@ -24,7 +24,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _userManager = userManager;
         }
 
-        // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
@@ -38,7 +37,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> AddRole(AddRoleViewModel model)
@@ -201,8 +199,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-
-        // GET: Manage/<>/Delete/5
         [HttpGet]
         public async Task<IActionResult> DeleteRole(string id)
         {

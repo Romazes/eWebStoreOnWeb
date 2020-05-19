@@ -20,14 +20,12 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _context = context;
         }
 
-        // GET: Manage/<>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Manage/<>/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,14 +44,12 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // GET: Manage/<>/Create
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Manage/<>/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +65,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // GET: Manage/<>/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,7 +81,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // POST: Manage/<>/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -140,7 +134,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(category);
         }
 
-        // POST: Manage/<>/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

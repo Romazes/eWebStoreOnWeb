@@ -21,7 +21,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             _context = context;
         }
 
-        // GET: Manage/<>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -29,7 +28,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Manage/<>/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,7 +47,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/<>/Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -57,7 +54,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View();
         }
 
-        // POST: Manage/Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -74,7 +70,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/<>/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -92,7 +87,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // POST: Manage/Product/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -128,7 +122,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // GET: Manage/<>/Delete/5
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -148,7 +141,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(product);
         }
 
-        // POST: Manage/Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -158,7 +150,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
