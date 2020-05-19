@@ -69,11 +69,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(addUserViewModel);
         }
 
-
-
-
-
-
+        // GET: Manage/<>/Edit/5
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {
@@ -143,18 +139,36 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return RedirectToAction("EditUser", new { Id = userId });
         }
 
-        // GET: Manage/<>/Edit/5
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
-                return RedirectToAction("Index", _userManager.Users);
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
 
-            var vm = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country };
+            var model = new EditUserViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Birthdate = user.Birthdate,
+                City = user.City,
+                Country = user.Country
+            };
 
-            return View(vm);
+            // Retrieve all the Roles
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                model.Roles.Add(role);
+            }
+
+            return View(model);
         }
 
         [HttpPost]
