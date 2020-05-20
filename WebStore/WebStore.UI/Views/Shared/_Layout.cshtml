@@ -44,13 +44,25 @@
                             </div>
                         </form>
                     </li>
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrators"))
+
+                    @if (User.IsInRole(AuthorizationConstants.Roles.ADMINISTRATORS) || User.IsInRole(AuthorizationConstants.Roles.MANAGERS))
                     {
-                        <li class="nav-item">
-                            @await Component.InvokeAsync("AdminMenu")
+                        <li class="nav-item dropdown text-white-50">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Content Management
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-area="Manage" asp-action="Index" asp-controller="Category">Categories</a>
+                                <a class="dropdown-item" asp-area="Manage" asp-action="Index" asp-controller="Product">Products</a>
+                                @if (User.IsInRole(AuthorizationConstants.Roles.ADMINISTRATORS))
+                                {
+                                    <a class="dropdown-item" asp-area="Manage" asp-action="Index" asp-controller="Role">Roles</a>
+                                    <a class="dropdown-item" asp-area="Manage" asp-action="Index" asp-controller="User">Users</a>
+                                }
+                            </div>
                         </li>
                     }
-                </ul>
+                    </ul>
                 <ul class="navbar-nav ml-md-auto">
                     <li class="pr-md-2">
                         @await Component.InvokeAsync("ShoppingCartSummary")

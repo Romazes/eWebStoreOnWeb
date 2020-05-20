@@ -66,10 +66,15 @@ namespace WebStore.UI
             // Expanded route implementation
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllerRoute(
-                   name: "categoryFilter",
-                   pattern: "product/{action}/{category?}",
-                   defaults: new { controller = "Product", action = "List" });
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "categoryFilter",
+                    pattern: "product/{action}/{category?}",
+                    defaults: new { controller = "Product", action = "List" });
 
                 endpoints.MapControllerRoute(
                     name: "default",

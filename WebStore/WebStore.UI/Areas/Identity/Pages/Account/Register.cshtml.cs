@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using WebStore.Core.Entities.Auth;
-using WebStore.UI.ViewModels.AdministrationViewModels;
+using WebStore.UI.ViewModels.AdministrationViewModels.User;
 
 namespace WebStore.UI.Areas.Identity.Pages.Account
 {

@@ -1,0 +1,81 @@
+﻿@model PaginatedList<IdentityRole>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "All Roles";
+}
+
+<h1>Roles</h1>
+
+<p>
+    <a class="btn btn-success text-white" asp-action="AddRole" accesskey="n"><i class="fas fa-plus-square"></i>&nbsp;Add <u>N</u>ew Role</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Search users" />
+
+            <button class="btn btn-primary text-white" type="submit" accesskey="s">
+                <i class="fas fa-search"></i> Search
+            </button>
+
+            <a class="btn btn-secondary text-white" asp-action="Index" accesskey="b">
+                <i class="fas fa-hand-point-left"></i> <u>B</u>ack to list
+            </a>
+        </p>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Roles available</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Role ID</th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+            </th>
+            <th>Actions</th>
+        </tr>
+        @foreach (IdentityRole role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="EditRole" asp-route-Id="@role.Id"><i class="fas fa-edit"></i></a>&nbsp;
+                        <a class="btn btn-danger text-white" asp-action="DeleteRole" asp-route-Id="@role.Id"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @prevDisabled">
+    <i class="fas fa-step-backward"></i>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @nextDisabled">
+    <i class="fas fa-step-forward"></i>
+</a>
