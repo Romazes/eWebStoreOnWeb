@@ -11,7 +11,6 @@ namespace WebStore.UI.ViewModels.AdministrationViewModels.User
             Roles = new List<string>();
         }
 
-
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Please enter the user name")]
