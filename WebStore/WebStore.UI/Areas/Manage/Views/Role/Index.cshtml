@@ -13,6 +13,23 @@
     <a class="btn btn-success text-white" asp-action="AddRole" accesskey="n"><i class="fas fa-plus-square"></i>&nbsp;Add <u>N</u>ew Role</a>
 </p>
 
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Search users" />
+
+            <button class="btn btn-primary text-white" type="submit" accesskey="s">
+                <i class="fas fa-search"></i> Search
+            </button>
+
+            <a class="btn btn-secondary text-white" asp-action="Index" accesskey="b">
+                <i class="fas fa-hand-point-left"></i> <u>B</u>ack to list
+            </a>
+        </p>
+    </div>
+</form>
+
 
 @if (!Model.Any())
 {
