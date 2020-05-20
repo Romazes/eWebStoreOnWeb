@@ -96,6 +96,13 @@
                        class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove roles</a>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-footer">
+                    <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
+                       class="btn btn-primary" style="width:auto" accesskey="c"><i class="fas fa-exclamation-circle"></i> Add or remove <u>c</u>laims</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>
