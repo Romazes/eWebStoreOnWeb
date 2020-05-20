@@ -9,6 +9,7 @@ using WebStore.UI.ViewModels.AdministrationViewModels.Role;
 using System.Linq;
 using System;
 using Microsoft.EntityFrameworkCore;
+using WebStore.UI.Utilities;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,7 +29,49 @@ namespace WebStore.UI.Areas.Manage.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> IndexAsync(string sortOrder, string searchString)
+        public async Task<IActionResult> IndexAsync(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var roles = from r in _roleManager.Roles
+                        select r;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                roles = roles.Where(r => r.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "role_desc":
+                    roles = roles.OrderByDescending(r => r.Name);
+                    break;
+                default:
+                    roles = roles.OrderBy(r => r.Name);
+                    break;
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<IdentityRole>.CreateAsync(roles.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
+
+        #region Old Methods
+        public async Task<IActionResult> IndexAsyncOLD(string sortOrder, string searchString)
         {
             ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
             ViewData["CurrentFilter"] = searchString;
@@ -53,13 +96,12 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(await roles.AsNoTracking().ToListAsync());
         }
 
-        #region Old Methods
         public async Task<IActionResult> IndexAsyncOLD(string sortOrder)
         {
             ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
 
             var roles = from r in _roleManager.Roles
-                         select r;
+                        select r;
 
             switch (sortOrder)
             {

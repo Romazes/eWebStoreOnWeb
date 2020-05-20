@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IdentityRole>
+﻿@model PaginatedList<IdentityRole>
 
 @{
     ViewData["Title"] = "Index";
@@ -30,7 +30,6 @@
     </div>
 </form>
 
-
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No Roles available</td></tr>
@@ -41,7 +40,7 @@ else
         <tr>
             <th>Role ID</th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
             </th>
             <th>Actions</th>
         </tr>
@@ -60,3 +59,23 @@ else
         }
     </table>
 }
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @prevDisabled">
+    <i class="fas fa-step-backward"></i>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-primary @nextDisabled">
+    <i class="fas fa-step-forward"></i>
+</a>
