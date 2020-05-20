@@ -70,52 +70,6 @@ namespace WebStore.UI.Areas.Manage.Controllers
             return View(await PaginatedList<IdentityRole>.CreateAsync(roles.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        #region Old Methods
-        public async Task<IActionResult> IndexAsyncOLD(string sortOrder, string searchString)
-        {
-            ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
-            ViewData["CurrentFilter"] = searchString;
-
-            var roles = from r in _roleManager.Roles
-                        select r;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                roles = roles.Where(r => r.Name.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "role_desc":
-                    roles = roles.OrderByDescending(r => r.Name);
-                    break;
-                default:
-                    roles = roles.OrderBy(r => r.Name);
-                    break;
-            }
-            return View(await roles.AsNoTracking().ToListAsync());
-        }
-
-        public async Task<IActionResult> IndexAsyncOLD(string sortOrder)
-        {
-            ViewData["RoleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "role_desc" : "";
-
-            var roles = from r in _roleManager.Roles
-                        select r;
-
-            switch (sortOrder)
-            {
-                case "role_desc":
-                    roles = roles.OrderByDescending(r => r.Name);
-                    break;
-                default:
-                    roles = roles.OrderBy(r => r.Name);
-                    break;
-            }
-            return View(await roles.AsNoTracking().ToListAsync());
-        }
-        #endregion
-
         [HttpGet]
         public IActionResult AddRole()
         {
