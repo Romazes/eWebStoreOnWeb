@@ -45,6 +45,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "CreateCategoryPolicy")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +55,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "CreateCategoryPolicy")]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,Description")] Category category)
         {
             if (ModelState.IsValid)
@@ -66,6 +68,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "EditCategoryPolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +88,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "EditCategoryPolicy")]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,Description")] Category category)
         {
             if (id != category.CategoryId)
@@ -117,6 +121,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
         // GET: Manage/<>/Delete/5
         [HttpGet]
+        [Authorize(Policy = "DeleteCategoryPolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +141,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "DeleteCategoryPolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await _context.Categories.FindAsync(id);

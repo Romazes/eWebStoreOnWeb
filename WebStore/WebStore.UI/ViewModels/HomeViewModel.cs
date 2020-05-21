@@ -5,6 +5,10 @@ namespace WebStore.UI.ViewModels
 {
     public class HomeViewModel
     {
+        public HomeViewModel()
+        {
+            ProductsOfTheWeek = new List<Product>();
+        }
         public IEnumerable<Product> ProductsOfTheWeek { get; set; }
     }
 }

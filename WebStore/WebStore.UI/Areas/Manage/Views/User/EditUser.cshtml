@@ -73,7 +73,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <div class="font-weight-bolder"><h3>User roles:</h3></div>
+                    <div class="font-weight-bolder"><h5>Roles for @Model.UserName</h5></div>
                 </div>
                 <div class="card-body">
                     <ol>
@@ -94,6 +94,31 @@
                 <div class="card-footer">
                     <a asp-area="Manage" asp-controller="User" asp-action="ManageUserRoles" asp-route-userId="@Model.Id"
                        class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove roles</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="font-weight-bolder"><h5>Claims for @Model.UserName</h5></div>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        @if (Model.Claims.Any())
+                        {
+                            foreach (var claim in Model.Claims)
+                            {
+                                <li>@claim</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="font-weight-bold">None at the moment</li>
+                        }
+                    </ol>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
+                       class="btn btn-primary" style="width:auto" accesskey="c"><i class="fas fa-exclamation-circle"></i> Add or remove <u>c</u>laims</a>
                 </div>
             </div>
         </form>
