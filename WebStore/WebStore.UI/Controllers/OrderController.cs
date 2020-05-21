@@ -9,6 +9,7 @@ using WebStore.Infrastructure.Data.Repositories;
 namespace WebStore.UI.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AgeLimit")]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;

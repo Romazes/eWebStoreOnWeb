@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
+using WebStore.Core.Entities.Auth.AuthPolicies;
 using WebStore.Core.Interfaces;
 using WebStore.Infrastructure.Data;
 using WebStore.Infrastructure.Data.Repositories;
@@ -44,6 +47,7 @@ namespace WebStore.UI
             services.AddHttpContextAccessor();
 
             //Claims-based
+            services.AddTransient<IAuthorizationHandler, AgeHandler>();
             services.AddAuthorization(options =>
             {
                 //options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Administrator"));
@@ -51,6 +55,8 @@ namespace WebStore.UI
                 options.AddPolicy("EditCategoryPolicy", policy => policy.RequireClaim("Edit Category", "Edit Category"));
                 options.AddPolicy("DeleteCategoryPolicy", policy => policy.RequireClaim("Edit Category", "Edit Category")
                                                                           .RequireClaim("Delete Category", "Delete Category"));
+
+                options.AddPolicy("AgeLimit", policy => policy.Requirements.Add(new AgeRequirement(AuthorizationConstants.Policies.MINIMUM_ORDER_AGE)));
             });
 
             services.AddSession();

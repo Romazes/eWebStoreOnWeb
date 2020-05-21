@@ -10,5 +10,10 @@
             public const string MANAGERS = "Managers";
             public const string USERS = "Users";
         }
+
+        public static class Policies
+        {
+            public const int MINIMUM_ORDER_AGE = 18;
+        }
     }
 }
