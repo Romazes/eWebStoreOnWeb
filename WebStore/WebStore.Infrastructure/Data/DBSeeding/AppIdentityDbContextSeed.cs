@@ -33,22 +33,41 @@ namespace WebStore.Infrastructure.Data.DBSeeding
             await userManager.AddClaimAsync(adminUser, new Claim("Delete Category", "Delete Category"));
             #endregion
 
-            #region Seed Manager user
+            #region Seed Manager users
             await roleManager.CreateAsync(new IdentityRole(AuthorizationConstants.Roles.MANAGERS));
 
-            var managerUser = new ApplicationUser
+            #region Seed Manager user - Junior
+            var managerUserJunior = new ApplicationUser
             {
-                UserName = "manager00@contoso.com",
-                Email = "manager00@contoso.com",
+                UserName = "managerJunior00@contoso.com",
+                Email = "managerJunior00@contoso.com",
                 Birthdate = DateTime.Now,
-                City = "Town Manager",
-                Country = "Country Manager"
+                City = "Town Manager - Junior",
+                Country = "Country Manager - Junior"
             };
 
-            await userManager.CreateAsync(managerUser, AuthorizationConstants.DEFAULT_PASSWORD);
-            await userManager.AddToRoleAsync(managerUser, AuthorizationConstants.Roles.MANAGERS);
-            await userManager.AddClaimAsync(managerUser, new Claim("Edit Category", "Edit Category"));
-            //await userManager.AddClaimAsync(managerUser, new Claim("Delete Category", "Delete Category"));
+            await userManager.CreateAsync(managerUserJunior, AuthorizationConstants.DEFAULT_PASSWORD);
+            await userManager.AddToRoleAsync(managerUserJunior, AuthorizationConstants.Roles.MANAGERS);
+            await userManager.AddClaimAsync(managerUserJunior, new Claim("Edit Category", "Edit Category"));
+            #endregion
+
+            #region Seed Manager user - Senior
+            var managerUserSenior = new ApplicationUser
+            {
+                UserName = "managerSenior00@contoso.com",
+                Email = "managerSenior00@contoso.com",
+                Birthdate = DateTime.Now,
+                City = "Town Manager - Senior",
+                Country = "Country Manager - Senior"
+            };
+
+            await userManager.CreateAsync(managerUserSenior, AuthorizationConstants.DEFAULT_PASSWORD);
+            await userManager.AddToRoleAsync(managerUserSenior, AuthorizationConstants.Roles.MANAGERS);
+            await userManager.AddClaimAsync(managerUserSenior, new Claim("Create Category", "Create Category"));
+            await userManager.AddClaimAsync(managerUserSenior, new Claim("Edit Category", "Edit Category"));
+            await userManager.AddClaimAsync(managerUserSenior, new Claim("Delete Category", "Delete Category"));
+            #endregion
+
             #endregion
 
             #region Seed default user
