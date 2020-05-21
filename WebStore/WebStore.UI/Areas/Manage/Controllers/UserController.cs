@@ -209,10 +209,13 @@ namespace WebStore.UI.Areas.Manage.Controllers
             // Retrieve all the Roles
             var roles = await _userManager.GetRolesAsync(user);
 
+            var claims = await _userManager.GetClaimsAsync(user);
+
             foreach (var role in roles)
-            {
                 model.Roles.Add(role);
-            }
+
+            foreach (var claim in claims)
+                model.Claims.Add(claim.Type);
 
             return View(model);
         }
@@ -372,6 +375,12 @@ namespace WebStore.UI.Areas.Manage.Controllers
             }
 
             return RedirectToAction("EditUser", new { Id = model.UserId });
+        }
+
+        public IActionResult AccessDenied()
+        {
+            //ViewBag.ErrorMessage = $"User with Id = {model.UserId} cannot be found";
+            return View("AccessDenied");
         }
     }
 }

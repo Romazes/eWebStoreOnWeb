@@ -9,6 +9,7 @@ namespace WebStore.UI.ViewModels.AdministrationViewModels.User
         public EditUserViewModel()
         {
             Roles = new List<string>();
+            Claims = new List<string>();
         }
 
         public string Id { get; set; }
@@ -32,5 +33,8 @@ namespace WebStore.UI.ViewModels.AdministrationViewModels.User
 
         [Display(Name = "Roles")]
         public List<string> Roles { get; set; }
+
+        [Display(Name = "Claims")]
+        public List<string> Claims { get; set; }
     }
 }

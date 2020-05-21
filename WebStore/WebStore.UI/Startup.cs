@@ -34,7 +34,7 @@ namespace WebStore.UI
             {
                 options.LoginPath = $"/Identity/Account/Login";
                 options.LogoutPath = $"/Identity/Account/Logout";
-                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+                options.AccessDeniedPath = $"/Manage/Account/AccessDenied";
             });
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -42,6 +42,33 @@ namespace WebStore.UI
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ShoppingCartRepository>(sp => ShoppingCartRepository.GetCart(sp));
             services.AddHttpContextAccessor();
+
+            //Claims-based
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Administrator"));
+                options.AddPolicy("CreateCategoryPolicy", policy => policy.RequireClaim("Create Category", "Create Category"));
+                options.AddPolicy("DeleteCategoryPolicy", policy => policy.RequireClaim("Delete Category", "Delete Category"));
+            });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("CreateCategoryPolicy",
+            //        policy => policy.RequireClaim("Create Category"));
+
+            //    options.AddPolicy("UpdateCategoryPolicy",
+            //        policy => policy.RequireClaim("Update Category"));
+
+            //    options.AddPolicy("DeleteCategoryPolicy",
+            //        policy => policy.RequireClaim("Create Category")
+            //                        .RequireClaim("Delete Category"));
+            //});
+
+            //options.AddPolicy("DeleteCategoryPolicy", policy => policy.RequireClaim("Create Category", "Create Category")
+            //                                                          .RequireClaim("Delete Category", "Delete Category"));
+
+
+
             services.AddSession();
             services.AddControllersWithViews();
             services.AddRazorPages();
