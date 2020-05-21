@@ -12,7 +12,6 @@ namespace WebStore.Core.Constants
             new Claim("Create Role", "Create Role"),
             new Claim("Edit Role","Edit Role"),
             new Claim("Delete Role","Delete Role"),
-
             new Claim("Create Category","Create Category"),
             new Claim("Edit Category","Edit Category"),
             new Claim("Delete Category","Delete Category")

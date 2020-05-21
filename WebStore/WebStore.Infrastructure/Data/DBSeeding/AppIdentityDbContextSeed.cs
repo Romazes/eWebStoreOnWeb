@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
 
 namespace WebStore.Infrastructure.Data.DBSeeding
 {
-    public class AppIdentityDbContextSeed
+    public static class AppIdentityDbContextSeed
     {
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -24,6 +25,12 @@ namespace WebStore.Infrastructure.Data.DBSeeding
 
             await userManager.CreateAsync(adminUser, AuthorizationConstants.DEFAULT_PASSWORD);
             await userManager.AddToRoleAsync(adminUser, AuthorizationConstants.Roles.ADMINISTRATORS);
+            await userManager.AddClaimAsync(adminUser, new Claim("Create Role", "Create Role"));
+            await userManager.AddClaimAsync(adminUser, new Claim("Edit Role","Edit Role"));
+            await userManager.AddClaimAsync(adminUser, new Claim("Delete Role","Delete Role"));
+            await userManager.AddClaimAsync(adminUser, new Claim("Create Category","Create Category"));
+            await userManager.AddClaimAsync(adminUser, new Claim("Edit Category","Edit Category"));
+            await userManager.AddClaimAsync(adminUser, new Claim("Delete Category", "Delete Category"));
             #endregion
 
             #region Seed Manager user
@@ -40,6 +47,8 @@ namespace WebStore.Infrastructure.Data.DBSeeding
 
             await userManager.CreateAsync(managerUser, AuthorizationConstants.DEFAULT_PASSWORD);
             await userManager.AddToRoleAsync(managerUser, AuthorizationConstants.Roles.MANAGERS);
+            await userManager.AddClaimAsync(managerUser, new Claim("Edit Category", "Edit Category"));
+            //await userManager.AddClaimAsync(managerUser, new Claim("Delete Category", "Delete Category"));
             #endregion
 
             #region Seed default user
