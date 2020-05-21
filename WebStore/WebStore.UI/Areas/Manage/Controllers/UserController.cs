@@ -100,6 +100,8 @@ namespace WebStore.UI.Areas.Manage.Controllers
 
             IdentityResult result = await _userManager.CreateAsync(user, addUserViewModel.Password);
 
+            result = await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.DateOfBirth, user.Birthdate.Year.ToString()));
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", _userManager.Users);

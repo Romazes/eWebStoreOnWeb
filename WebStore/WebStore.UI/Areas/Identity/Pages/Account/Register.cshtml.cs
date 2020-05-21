@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -65,7 +66,11 @@ namespace WebStore.UI.Areas.Identity.Pages.Account
                     City = Input.City,
                     Country = Input.Country
                 };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                result = await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.DateOfBirth, user.Birthdate.Year.ToString()));
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
