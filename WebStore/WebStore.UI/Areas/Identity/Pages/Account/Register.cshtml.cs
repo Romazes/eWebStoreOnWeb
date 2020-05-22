@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
 using WebStore.UI.ViewModels.AdministrationViewModels.User;
 
@@ -70,6 +71,12 @@ namespace WebStore.UI.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 result = await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.DateOfBirth, user.Birthdate.Year.ToString()));
+
+                #region Assigning self-registered user to Users role by default
+                var userRoles = await _userManager.GetRolesAsync(user);
+                userRoles.Add(AuthorizationConstants.Roles.USERS);
+                result = await _userManager.AddToRolesAsync(user, userRoles);
+                #endregion
 
                 if (result.Succeeded)
                 {
