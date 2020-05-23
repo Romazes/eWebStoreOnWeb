@@ -1,35 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using WebStore.Core.Entities;
 using WebStore.Core.Interfaces;
 using WebStore.UI.Controllers;
-using WebStore.UI.ViewModels;
 using Xunit;
 
 namespace WebStore.XUnitTests
 {
     public class HomeControllerTests
     {
-        [Fact]
-        public void Index_ReturnsAViewResult_WithAListOfProducts()
-        {
-            // Arrange
-            var mockRepo = new Mock<IProductRepository>();
-            mockRepo.Setup(repo => repo.AllProducts).Returns(GetProducts());
-
-            var controller = new HomeController(mockRepo.Object);
-
-            // Act
-            var result = controller.Index();
-
-            // Assert
-
-         }
-
         [Fact]
         public void HomeController_Index_ReturnViews()
         {
