@@ -112,8 +112,7 @@ namespace WebStore.UI.Areas.Manage.Controllers
                 ModelState.AddModelError("", error.Description);
             }
 
-            //return View(addUserViewModel);
-            return View("EditUser", user);
+            return View(addUserViewModel);
         }
 
         [HttpGet]
