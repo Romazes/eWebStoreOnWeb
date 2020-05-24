@@ -6,7 +6,7 @@ using WebStore.Core.Interfaces;
 using WebStore.UI.Controllers;
 using Xunit;
 
-namespace WebStore.XUnitTests
+namespace WebStore.XUnitTests.UI.Controllers
 {
     public class HomeControllerTests
     {
@@ -28,13 +28,35 @@ namespace WebStore.XUnitTests
             #endregion
 
             #region Assert
-            // todo: verify that conditions are met.
+            // todo: verify that conditions are met
             // Returns not null
             Assert.NotNull(result);
             // Returns view data model
             Assert.NotNull(result.Model);
             // Returns specific name of the view to render
             Assert.True(string.IsNullOrEmpty(result.ViewName) || result.ViewName == "Index");
+            #endregion
+        }
+
+        [Fact]
+        public void HomeController_Index_ReturnsViewResult()
+        {
+            #region Arrange
+            // todo: define the required assets
+            var mockRepo = new Mock<IProductRepository>();
+
+            mockRepo.Setup(repo => repo.AllProducts).Returns(GetProducts());
+
+            var controller = new HomeController(mockRepo.Object);
+            #endregion
+
+            #region Act
+            // todo: invoke the test
+            var result = controller.Index() as ViewResult;
+            #endregion
+
+            #region Assert
+            // todo: verify that conditions are met
             // Returns ViewResult
             Assert.IsType<ViewResult>(result);
             #endregion
