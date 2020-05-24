@@ -31,7 +31,7 @@ namespace WebStore.Infrastructure.Data.Repositories
                 var orderDetail = new OrderDetail
                 {
                     Amount = shoppingCartItem.Amount,
-                    PieId = shoppingCartItem.Product.ProductId,
+                    ProductId = shoppingCartItem.Product.ProductId,
                     Price = shoppingCartItem.Product.Price
                 };
 
