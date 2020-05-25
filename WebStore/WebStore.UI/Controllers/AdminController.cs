@@ -1,20 +1,25 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
-using WebStore.UI.ViewModels.AdministrationViewModels;
+using WebStore.UI.ViewModels.AdministrationViewModels.User;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebStore.UI.Controllers
 {
+    [Authorize(Roles = AuthorizationConstants.Roles.ADMINISTRATORS)]
     public class AdminController : Controller
     {
-        private UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<ApplicationUser> userManager)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: /<controller>/
@@ -60,6 +65,7 @@ namespace WebStore.UI.Controllers
             {
                 ModelState.AddModelError("", error.Description);
             }
+
             return View(addUserViewModel);
         }
 

@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Categories</h1>
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "CreateCategoryPolicy")).Succeeded)
+{
+    <p>
+        <a class="btn btn-success text-white" asp-action="Create" accesskey="n"><i class="fas fa-plus-square"></i>&nbsp;Add <u>N</u>ew Category</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <partial name="PartialViewsForManagement/_PartialViewButtonInt" model="item.CategoryId" />
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,130 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit User: @Model.UserName</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="EditUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Id"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Id" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Birthdate"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Birthdate" class="form-control" />
+                    <span asp-validation-for="Birthdate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="City"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Country"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <partial name="PartialViewsForManagement/_PartialViewFooterEdit" />
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="font-weight-bolder"><h5>Roles for @Model.UserName</h5></div>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        @if (Model.Roles.Any())
+                        {
+
+                            foreach (var role in Model.Roles)
+                            {
+                                <li>@role</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="font-weight-bold">None at the moment</li>
+                        }
+                    </ol>
+                </div>
+                <div class="card-footer">
+                    <a asp-area="Manage" asp-controller="User" asp-action="ManageUserRoles" asp-route-userId="@Model.Id"
+                       class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove roles</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="font-weight-bolder"><h5>Claims for @Model.UserName</h5></div>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        @if (Model.Claims.Any())
+                        {
+                            foreach (var claim in Model.Claims)
+                            {
+                                <li>@claim</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="font-weight-bold">None at the moment</li>
+                        }
+                    </ol>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="ManageUserClaims" asp-route-userId="@Model.Id"
+                       class="btn btn-primary" style="width:auto" accesskey="c"><i class="fas fa-exclamation-circle"></i> Add or remove <u>c</u>laims</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

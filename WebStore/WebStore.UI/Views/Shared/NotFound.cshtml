@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Not Found";
+}
+
+<div class="row">
+    <div id="oopss">
+        <div id="error-text">
+            <span>@ViewBag.StatusCode</span>
+            <p>@ViewBag.ErrorMessage</p>
+            <p class="hmpg"><a asp-action="index" asp-controller="home" class="back">Back To Home</a></p>
+        </div>
+    </div>
+</div>

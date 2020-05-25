@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Core", "WebStore.Core\WebStore.Core.csproj", "{E1162762-871C-46A6-8890-394C1818B665}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.XUnitTests", "WebStore.XUnitTests\WebStore.XUnitTests.csproj", "{F7CF359D-6A6F-4CE5-B3BD-4B204CB1E886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E1162762-871C-46A6-8890-394C1818B665}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1162762-871C-46A6-8890-394C1818B665}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1162762-871C-46A6-8890-394C1818B665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7CF359D-6A6F-4CE5-B3BD-4B204CB1E886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7CF359D-6A6F-4CE5-B3BD-4B204CB1E886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7CF359D-6A6F-4CE5-B3BD-4B204CB1E886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7CF359D-6A6F-4CE5-B3BD-4B204CB1E886}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

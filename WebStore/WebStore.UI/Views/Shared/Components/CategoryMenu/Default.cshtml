@@ -1,14 +1,14 @@
 ﻿<li class="nav-item dropdown">
     <a asp-controller="Product" asp-action="Index"
-       class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tea</a>
+       class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" asp-area="">Tea</a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
         @foreach (var category in Model)
         {
             <a class="dropdown-item"
-               asp-controller="Product" asp-action="List"
+               asp-controller="Product" asp-action="List" asp-area="" 
                asp-route-category="@category.CategoryName">@category.CategoryName</a>
         }
-        <a class="dropdown-item" asp-controller="Product" asp-action="List" asp-route-category="">View all tea</a>
+        <a class="dropdown-item" asp-controller="Product" asp-action="List" asp-route-category="" asp-area="">View all tea</a>
     </div>
 </li>

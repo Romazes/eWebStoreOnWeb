@@ -1,0 +1,56 @@
+﻿@model EditRoleViewModel
+
+@{
+    ViewData["Title"] = "Edit Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit Role: @Model.RoleName</h1>
+
+<hr />
+<form method="post" class="mt-3">
+    <div class="form-group row">
+        <label asp-for="Id" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="Id" disabled class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="RoleName" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="RoleName" class="form-control">
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <partial name="PartialViewsForManagement/_PartialViewFooterEdit" />
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Users in this role</h3>
+        </div>
+        <div class="card-body">
+            <ol>
+                @if (Model.Users.Any())
+                {
+                    foreach (var user in Model.Users)
+                    {
+                        <li class="card-title">@user</li>
+                    }
+                }
+                else
+                {
+                    <li class="card-title">None at the moment</li>
+                }
+            </ol>
+        </div>
+        <div class="card-footer">
+            <a asp-area="Manage" asp-controller="Role" asp-action="EditUsersInRole" asp-route-roleId="@Model.Id"
+               class="btn btn-primary" style="width:auto" accesskey="a"><i class="fas fa-address-card"></i> <u>A</u>dd or remove users</a>
+        </div>
+    </div>
+</form>
