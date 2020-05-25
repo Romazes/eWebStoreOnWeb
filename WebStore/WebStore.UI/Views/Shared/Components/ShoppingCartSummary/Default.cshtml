@@ -1,6 +1,6 @@
 ﻿@model ShoppingCartViewModel
 
-<a class="nav-link notification" asp-controller="ShoppingCart" asp-action="Index">
+<a class="nav-link notification" asp-controller="ShoppingCart" asp-action="Index" asp-area="">
     <i class="fas fa-shopping-basket"></i>
 
     @if (Model.ShoppingCart.ShoppingCartItems.Count > 0)
