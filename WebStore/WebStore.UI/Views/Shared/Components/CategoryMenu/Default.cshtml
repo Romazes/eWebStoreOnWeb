@@ -6,9 +6,9 @@
         @foreach (var category in Model)
         {
             <a class="dropdown-item"
-               asp-controller="Product" asp-action="List"
+               asp-controller="Product" asp-action="List" asp-area="" 
                asp-route-category="@category.CategoryName">@category.CategoryName</a>
         }
-        <a class="dropdown-item" asp-controller="Product" asp-action="List" asp-route-category="">View all tea</a>
+        <a class="dropdown-item" asp-controller="Product" asp-action="List" asp-route-category="" asp-area="">View all tea</a>
     </div>
 </li>
