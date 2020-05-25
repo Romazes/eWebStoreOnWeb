@@ -1,6 +1,6 @@
 # WebStore
 Top Gun Lab - .NET edition - Final Project
-https://github.com/v4dev/WebStore2/
+https://github.com/v4dev/WebStore/
 
 Team:
 1. Roman Yavnikov (https://github.com/Romazes/)
@@ -72,3 +72,23 @@ Online Tea Shop final project features Asp.NET Core MVC 3.1 implementation and t
 8.2. Added authentication functionality<br>
 8.3. Enforced authentication request for user to place an order<br>
 8.4. Enabled User Management<br>
+
+# Additional features added:
+
+9. Unit tests<br>
+9.1. Added Core section related unit tests<br>
+9.2. Added UI Controllers section related unit tests
+
+10. Security<br>
+10.1. Default Identity is extended by adding ApplicationUser with extra fields<br>
+10.2. Added role-based authorization<br>
+10.3. Added product, product category, user and user role management functionality<br>
+10.4. Added claims-based authorization<br>
+10.5. Added age-based limitation on the order checkout which is based on the claims<br>
+10.6. Use case information<br>
+Password for all users is Password123!<br>
+10.6.1. admin00@contoso.com - Can do anything<br>
+10.6.2.1. managerJunior00@contoso.com - Junior admin can only fully manage products and ONLY edit product categories<br>
+10.6.2.2. managerSenior00@contoso.com - Junior admin can only fully manage products and product categories<br>
+10.6.3.1. userAdult00@contoso.com - Can fill the shopping cart and make an order<br>
+10.6.3.2. userChild00@contoso.com - Can ONLY fill the shopping cart, but CANNOT make an order
