@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using WebStore.Core.Constants;
 using WebStore.Core.Entities.Auth;
 using WebStore.Core.Entities.Auth.AuthPolicies;
@@ -28,8 +29,16 @@ namespace WebStore.UI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AppDBContext")));
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                services.AddDbContext<AppDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("AzureDBContext")));
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(options =>
+                       options.UseSqlServer(Configuration.GetConnectionString("AppDBContext")));
+            }
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
