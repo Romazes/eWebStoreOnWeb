@@ -1,6 +1,6 @@
-# WebStore
+# WebStore2
 Top Gun Lab - .NET edition - Final Project
-https://github.com/v4dev/WebStore/
+https://github.com/v4dev/WebStore2/
 
 Team:
 1. Roman Yavnikov (https://github.com/Romazes/)
